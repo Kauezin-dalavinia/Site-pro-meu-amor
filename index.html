@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Constelação do Amor</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #tutorial {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px 25px;
+      max-width: 600px;
+      margin: 20px auto;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .star {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 10px white;
+      cursor: pointer;
+      animation: float 5s ease-in-out infinite, glow 2.5s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+
+    .star:hover {
+      transform: scale(1.6);
+    }
+
+    .message-box {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid white;
+      border-radius: 10px;
+      padding: 15px 25px;
+      max-width: 90%;
+      font-size: 1.2rem;
+      text-align: center;
+      display: none;
+      user-select: text;
+      backdrop-filter: blur(6px);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 8px white;
+        background: white;
+      }
+      50% {
+        box-shadow: 0 0 20px #ffd700;
+        background: #fffacd;
+      }
+    }
+
+    #playButton {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: black;
+      padding: 15px 30px;
+      border: none;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 15px white;
+      transition: background 0.3s;
+    }
+
+    #playButton:hover {
+      background: #ffd700;
+    }
+  </style>
+</head>
+<body>
+
+<div id="tutorial">
+  Clique nas estrelas para receber uma mensagem especial 💫
+</div>
+
+<button id="playButton">Ativar som 🎵</button>
+
+<div class="message-box" id="messageBox"></div>
+
+<audio id="musica" loop>
+  <source src="Terça de Tarde.mp3" type="audio/mpeg" />
+  Seu navegador não suporta áudio.
+</audio>
+
+<script>
+  const audio = document.getElementById('musica');
+  const playBtn = document.getElementById('playButton');
+
+  playBtn.addEventListener('click', () => {
+    audio.currentTime = 11; // Começa do segundo 45 (mude se quiser)
+    audio.play();
+    playBtn.style.display = 'none';
+  });
+
+  const messages = [
+    "Você é minha estrela favorita.",
+    "Desde que te conheci, meu céu ficou mais bonito.",
+    "Em qualquer universo... ainda seria você.",
+    "Quando olho pro céu, lembro de você.",
+    "Você esta em todas as minhas oraões.",
+    "Você ilumina minha noite e meu dia.",
+    "Até o céu sentiria ciúmes da tua luz.",
+    "EU te amo mais que tudo no mundo.",
+    "Voçe é apessoa mais invrivel que eu conheci.",
+    "Com você, até o universo fica pequeno."
+  ];
+
+  const box = document.getElementById('messageBox');
+
+  for(let i = 0; i < 30; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+
+    star.addEventListener('click', () => {
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      box.innerText = msg;
+      box.style.display = 'block';
+    });
+
+    document.body.appendChild(star);
+  }
+</script>
+
+</body>
+</html>
